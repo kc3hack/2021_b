@@ -20,3 +20,7 @@
 
 # GitHub Actions
 .github/workflows/
+
+# Tailwind CSS
+postcss.config.js
+tailwind.config.js
