@@ -17,3 +17,6 @@
 
 # ESLint
 .eslintrc.js
+
+# GitHub Actions
+.github/workflows/
