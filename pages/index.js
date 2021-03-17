@@ -1,8 +1,9 @@
-import SignInScreen from "../components/SignInScreen";
+import Top from "../components/Top";
 
 // link library
 import React, { Component } from "react";
-import firebase from "firebase";
+import firebase from "../src/firebase/index.js";
+import MainLayout from "../layouts/Main";
 
 class Index extends Component {
   state = {
@@ -26,11 +27,16 @@ class Index extends Component {
       return (
         <div>
           {this.state.currentUser ? (
-            <>
-              <h1>ログイン</h1>
-            </>
+            //ログイン後のページ
+            <MainLayout>
+              <Top />
+            </MainLayout>
           ) : (
-            <SignInScreen />
+            <>
+              <MainLayout>
+                <Top />
+              </MainLayout>
+            </>
           )}
         </div>
       );
