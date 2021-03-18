@@ -33,6 +33,27 @@ class SignInScreen extends React.Component {
     this.unregisterAuthObserver = firebase
       .auth()
       .onAuthStateChanged((user) => this.setState({ isSignedIn: !!user }));
+    firebase.auth().onAuthStateChanged(async (user) => {
+      // 未ログイン時
+      if (!user) {
+        // 匿名ログインする
+        firebase.auth().signInAnonymously();
+      }
+      // ログイン時
+      else {
+        // ログイン済みのユーザー情報があるかをチェック
+        var userDoc = await firebase.firestore().collection('user').doc(user.uid).get();
+        if (!userDoc.exists) {
+          // Firestore にユーザー用のドキュメントが作られていなければ作る
+          await userDoc.ref.set({
+            screen_name: user.uid,
+            display_name: user.displayName,
+            created_at: firebase.firestore.FieldValue.serverTimestamp(),
+            email: user.email,
+          });
+        }
+      }
+    });
   }
 
   // Make sure we un-register Firebase observers when the component unmounts.
