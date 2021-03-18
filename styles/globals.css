@@ -14,3 +14,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.main-bg {
+  background-image: url("../public/background_yellow.png");
+}
