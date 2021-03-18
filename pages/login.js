@@ -1,8 +1,5 @@
-// Import FirebaseAuth and firebase.
-import React from "react";
+import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import firebase from "../src/firebase/index";
-
 import Index from "../pages";
 
 const uiConfig = {
@@ -55,6 +52,7 @@ class SignInScreen extends React.Component {
       );
     }
     return <Index />;
+    // TODO: 
   }
 }
 export default SignInScreen;
