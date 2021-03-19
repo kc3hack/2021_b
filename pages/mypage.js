@@ -18,7 +18,7 @@ const MyPage = (props) => {
   console.log(user);
 
   const [value, loading, error] = useDownloadURL(
-    firebase.storage().ref("user_icon/チロリストちあ吉アイコン72正方形 1.png")
+    firebase.storage().ref(`user_icon/${uid}.png`)
   );
 
   return (
