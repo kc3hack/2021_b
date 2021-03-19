@@ -37,7 +37,7 @@ class SignInScreen extends React.Component {
       // 未ログイン時
       if (user) {
         // ログイン済みのユーザー情報があるかをチェック
-        var userDoc = await firebase.firestore().collection('user').doc(user.uid).get();
+        var userDoc = await firebase.firestore().doc(`user/${user.uid}`).get();
         if (!userDoc.exists) {
           // Firestore にユーザー用のドキュメントが作られていなければ作る
           await userDoc.ref.set({
