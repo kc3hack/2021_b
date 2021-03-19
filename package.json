@@ -8,14 +8,15 @@
     "start": "next start"
   },
   "dependencies": {
+    "autoprefixer": "^10.2.5",
     "babel-eslint": "^10.1.0",
     "dotenv": "^8.2.0",
     "firebase": "^8.3.0",
-    "autoprefixer": "^10.2.5",
     "next": "10.0.8",
     "postcss": "^8.2.8",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-firebase-hooks": "^3.0.2",
     "react-firebaseui": "^4.1.0",
     "tailwindcss": "^2.0.3"
   },
