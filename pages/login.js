@@ -35,12 +35,7 @@ class SignInScreen extends React.Component {
       .onAuthStateChanged((user) => this.setState({ isSignedIn: !!user }));
     firebase.auth().onAuthStateChanged(async (user) => {
       // 未ログイン時
-      if (!user) {
-        // 匿名ログインする
-        firebase.auth().signInAnonymously();
-      }
-      // ログイン時
-      else {
+      if (user) {
         // ログイン済みのユーザー情報があるかをチェック
         var userDoc = await firebase.firestore().collection('user').doc(user.uid).get();
         if (!userDoc.exists) {
