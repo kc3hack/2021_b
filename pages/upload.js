@@ -4,12 +4,19 @@ import { storage } from "./_app";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import { useAuthState } from "react-firebase-hooks/auth";
+import firebase from "firebase/app";
 
 const UpLoadTest = () => {
     const [image, setImage] = useState("");
     const [imageUrl, setImageUrl] = useState("");
     const [error, setError] = useState("");
     const [progress, setProgress] = useState(100);
+
+    const [authUser, authLoading, authError] = useAuthState(firebase.auth());
+    const uid = authUser?.uid;
+    console.log("aaa", uid);
+
 
     const handleImage = (event) => {
         const image = event.target.files[0];
@@ -29,7 +36,7 @@ const UpLoadTest = () => {
         // アップロード処理
         console.log("アップロード処理");
         const storageRef = storage.ref("user_icon"); //どのフォルダの配下に入れるかを設定
-        const imagesRef = storageRef.child(image.name); //ファイル名
+        const imagesRef = storageRef.child(uid + ".png"); //ファイル名
 
         console.log("ファイルをアップする行為");
         const upLoadTask = imagesRef.put(image);
@@ -63,7 +70,7 @@ const UpLoadTest = () => {
             {error && <div variant="danger">{error}</div>}
             <h2>
                 <MemoryRouter>
-                <Link to="/Dashboard">Dashboard</Link>
+                    <Link to="/Dashboard">Dashboard</Link>
                 </MemoryRouter>
             </h2>
             <form onSubmit={onSubmit}>
