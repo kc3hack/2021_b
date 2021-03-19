@@ -30,3 +30,29 @@ const MyPage = (props) => {
 };
 
 export default MyPage;
+      <div className="flex ">
+        {image_url && <img src={image_url} className="w-32 h-32"></img>}
+        <div className="mx-8">
+          <div className="my-4">
+            <h1>名前</h1>
+            <h1>{user?.display_name}</h1>
+            <input value={name} onChange={(e) => setName(e.target.value)} />
+            <button type="button" onClick={postNewName}>
+              変更
+            </button>
+          </div>
+
+          <div className="my-4">
+            <h1>プロフィール</h1>
+            <h1>{user?.profile}</h1>
+            <input
+              value={profile}
+              onChange={(e) => setProfile(e.target.value)}
+            />
+            <button type="button" onClick={postNewProfile} className="">
+              変更
+            </button>
+          </div>
+        </div>
+      </div>
+
