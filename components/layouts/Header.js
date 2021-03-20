@@ -22,6 +22,10 @@ const Header = () => {
     uid && firebase.storage().ref(`user_icon/${uid}.png`)
   );
 
+  const [default_url] = useDownloadURL(
+    firebase.storage().ref("user_icon/icon-user-pink.png")
+  );
+
   return (
     <header>
       <div className="flex flex-row bg-red">
@@ -35,7 +39,7 @@ const Header = () => {
         </p>
         <UserProfileButton
           isLoggedIn={authUser !== null}
-          avatarImageUrl={image_url}
+          avatarImageUrl={image_url ? image_url : default_url}
           userDisplayName={user?.display_name}
         />
       </div>

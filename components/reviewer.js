@@ -20,10 +20,14 @@ const Reviewer = (props) => {
     return dayjs(timestamp * 1000).format("YYYY/MM/DD HH:MM");
   };
 
+  const [default_url] = useDownloadURL(
+    firebase.storage().ref("user_icon/icon-user-pink.png")
+  );
+
   return (
     <li className="my-8">
       <h1>{user?.display_name}</h1>
-      {image_path && <img src={image_path} className="w-12"></img>}
+      <img src={image_path ? image_path : default_url} className="w-12"></img>
 
       <h1>{props.review?.title}</h1>
       <h1>
