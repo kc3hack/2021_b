@@ -94,7 +94,7 @@ const MyPage = (props) => {
         console.log("err", error);
         setError("ファイルアップに失敗しました。" + error);
         setProgress(100); //実行中のバーを消す
-      },
+      }
     );
   };
 
