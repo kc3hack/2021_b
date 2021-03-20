@@ -22,6 +22,9 @@ function Header() {
         <Link href={"/uplpad"} as={"/upload"}>
           <button className="ml-20 py-4 text-xs">アイコン</button>
         </Link>
+        <Link href={"/tirolrepo"} as={"/tirolrepo"}>
+          <button className="ml-20 py-4 text-xs">チロレポ</button>
+        </Link>
       </div>
     </header>
   );
