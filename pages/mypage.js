@@ -1,5 +1,5 @@
 import MainLayout from "../layouts/Main/index";
-import Reviewer from "../components/review";
+import Reviewer from "../components/reviewer";
 
 import firebase from "firebase/app";
 import React, { useState, useEffect } from "react";
