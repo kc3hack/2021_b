@@ -85,12 +85,14 @@ const MyPage = (props) => {
       "state_changed",
       (snapshot) => {
         console.log("snapshot", snapshot);
-        location.reload();
       },
       (error) => {
         console.log("err", error);
         setError("ファイルアップに失敗しました。" + error);
         setProgress(100); //実行中のバーを消す
+      },
+      () => {
+        location.reload();
       }
     );
   };
