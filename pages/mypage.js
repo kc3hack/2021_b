@@ -85,9 +85,6 @@ const MyPage = (props) => {
       "state_changed",
       (snapshot) => {
         console.log("snapshot", snapshot);
-        const percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log(percent + "% done");
-        setProgress(percent);
         location.reload();
       },
       (error) => {
