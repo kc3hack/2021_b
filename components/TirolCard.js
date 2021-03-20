@@ -13,7 +13,10 @@ function TirolCard(props) {
   return (
     <div>
       <button onClick={handleClick}>
-        <img src={`${props.tirolData.image}`} className="inline-block w-32 h-32" />
+        <img
+          src={`${props.tirolData.image}`}
+          className="inline-block w-32 h-32"
+        />
       </button>
     </div>
   );
