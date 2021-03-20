@@ -2,10 +2,7 @@ import { useState } from "react";
 
 import firebase from "firebase/app";
 import { useAuthState } from "react-firebase-hooks/auth";
-import {
-  useDocumentData,
-  useCollectionData,
-} from "react-firebase-hooks/firestore";
+import { useDocumentData } from "react-firebase-hooks/firestore";
 import { useDownloadURL } from "react-firebase-hooks/storage";
 
 const NewReview = (props) => {
@@ -27,8 +24,6 @@ const NewReview = (props) => {
   const [content, setContent] = useState("");
   const [score, setScore] = useState(0);
 
-  const [isWritten, setIsWritten] = useState(false);
-
   // 投稿処理
   const postNewReview = async () => {
     // タイトル，感想，スコアのどれかが未入力なら投稿しない
@@ -38,7 +33,7 @@ const NewReview = (props) => {
 
     await firebase.firestore().collection("review").add({
       content: content,
-      date: firebase.firestore.Timestamp.now(), //fromDate(Date.now()),
+      date: firebase.firestore.Timestamp.now(),
       score: score,
       tirol_id: props.tirol_id,
       title: title,
@@ -109,7 +104,6 @@ const NewReview = (props) => {
 
         <button
           type="button"
-          // disabled={!isWritten}
           className="m-1  px-4 py-2 float-right bg-pink rounded-sm"
           onClick={postNewReview}
         >
