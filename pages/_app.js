@@ -25,4 +25,7 @@ function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />;
 }
 
+var storage_obj = firebase.storage();
+
 export default MyApp;
+export const storage = storage_obj;

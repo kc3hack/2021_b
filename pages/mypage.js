@@ -11,6 +11,11 @@ import {
 } from "react-firebase-hooks/firestore";
 import { useDownloadURL } from "react-firebase-hooks/storage";
 
+import { storage } from "./_app";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+
 const MyPage = (props) => {
   const [authUser, authLoading, authError] = useAuthState(firebase.auth());
   const uid = authUser?.uid;
@@ -47,6 +52,49 @@ const MyPage = (props) => {
     { idField: "id" }
   );
 
+  const [image, setImage] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [imageError, setError] = useState("");
+  const [progress, setProgress] = useState(100);
+
+  const handleImage = (event) => {
+    const image = event.target.files[0];
+    setImage(image);
+    console.log(image);
+    setError("");
+  };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    setError("");
+    if (image === "") {
+      console.log("ファイルが選択されていません");
+      setError("ファイルが選択されていません");
+      return;
+    }
+    // アップロード処理
+    console.log("アップロード処理");
+    const storageRef = storage.ref("user_icon"); //どのフォルダの配下に入れるかを設定
+    const imagesRef = storageRef.child(uid + ".png"); //ファイル名
+
+    console.log("ファイルをアップする行為");
+    const upLoadTask = imagesRef.put(image);
+    console.log("タスク実行前");
+
+    upLoadTask.on(
+      "state_changed",
+      (snapshot) => {
+        console.log("snapshot", snapshot);
+        location.reload();
+      },
+      (error) => {
+        console.log("err", error);
+        setError("ファイルアップに失敗しました。" + error);
+        setProgress(100); //実行中のバーを消す
+      }
+    );
+  };
+
   return (
     <MainLayout>
       <div className="flex ">
@@ -59,6 +107,21 @@ const MyPage = (props) => {
             <button type="button" onClick={postNewName}>
               変更
             </button>
+          </div>
+
+          <div className="my-4">
+            アイコン
+            {imageError && <div variant="danger">{error}</div>}
+            <form onSubmit={onSubmit}>
+              <input type="file" onChange={handleImage} />
+              <button onClick={onSubmit}>アップロード</button>
+            </form>
+            {progress !== 100 && <LinearProgressWithLabel value={progress} />}
+            {imageUrl && (
+              <div>
+                <img width="400px" src={imageUrl} alt="uploaded" />
+              </div>
+            )}
           </div>
 
           <div className="my-4">
@@ -87,5 +150,20 @@ const MyPage = (props) => {
     </MainLayout>
   );
 };
+
+function LinearProgressWithLabel(props) {
+  return (
+    <Box display="flex" alignItems="center">
+      <Box width="100%" mr={1}>
+        <LinearProgress variant="determinate" {...props} />
+      </Box>
+      <Box minWidth={35}>
+        <Typography variant="body2" color="textSecondary">{`${Math.round(
+          props.value
+        )}%`}</Typography>
+      </Box>
+    </Box>
+  );
+}
 
 export default MyPage;
