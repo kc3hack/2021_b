@@ -49,7 +49,7 @@ const TirolList = () => {
   }
 
   return (
-    <div className="bg-pink p-16">
+    <>
       <div className="space-x-4 space-y-4 ">
         <img
           src="/upload-tirol-icon.png"
@@ -69,7 +69,7 @@ const TirolList = () => {
       >
         <Upload />
       </Modal>
-    </div>
+    </>
   );
 };
 
