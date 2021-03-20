@@ -25,13 +25,18 @@ const NewReview = (props) => {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [score, setScore] = useState();
+  const [score, setScore] = useState(0);
 
   const [isWritten, setIsWritten] = useState(false);
 
   // 投稿処理
   const postNewReview = async () => {
-    await (uid && firebase.firestore().collection("review")).add({
+    // タイトル，感想，スコアのどれかが未入力なら投稿しない
+    if (!title || !content || !score) {
+      return;
+    }
+
+    await firebase.firestore().collection("review").add({
       content: content,
       date: firebase.firestore.Timestamp.now(), //fromDate(Date.now()),
       score: score,
@@ -39,11 +44,15 @@ const NewReview = (props) => {
       title: title,
       user_id_token: uid,
     });
+
+    // stateの初期化
     setTitle("");
     setContent("");
+    setScore(0);
     document.getElementById("default-score").selected = true;
   };
 
+  // 未ログインなら表示しない
   if (!uid) {
     return <></>;
   }
