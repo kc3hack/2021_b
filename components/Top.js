@@ -50,11 +50,11 @@ const TirolList = () => {
 
   return (
     <>
-      <div className="space-x-4 space-y-4 ">
+      <div className="grid grid-cols-auto gap-4">
         <img
           src="/upload-tirol-icon.png"
           onClick={openModal}
-          className="inline-block"
+          className="inline-block w-32 h-32"
         />
         {tirols.map((tirol) => (
           <div key={tirol.id} className="inline-block">

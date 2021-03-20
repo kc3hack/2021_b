@@ -12,6 +12,11 @@ module.exports = {
       'yellow':'#fff964',
       'blue':'#656df6',
       'skyblue':'#96fcf8',
+    },
+    extend: {
+      gridTemplateColumns: {
+       'auto': 'repeat(auto-fit, minmax(128px, 1fr))',
+      }
     }
   },
   variants: {
