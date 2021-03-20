@@ -7,9 +7,13 @@ import {
   useCollectionData,
 } from "react-firebase-hooks/firestore";
 import { useDownloadURL } from "react-firebase-hooks/storage";
+import { useRouter } from "next/router";
+import { route } from "next/dist/next-server/server/router";
 
 const TirolRepo = () => {
-  const tirol_id = "RQ1HqfOdsovmWym7jv3L";
+  const router = useRouter();
+  const tirol_id = router.query.name;
+  console.log(tirol_id);
 
   // チロルデータ取得
   const [tirol_doc] = useDocumentData(
