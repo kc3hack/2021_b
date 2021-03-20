@@ -3,7 +3,6 @@ import { useDocumentData } from "react-firebase-hooks/firestore";
 import { useDownloadURL } from "react-firebase-hooks/storage";
 
 import dayjs from "dayjs";
-import ReactDOM from 'react-dom'
 
 const Reviewer = (props) => {
   // レビュアーデータ取得
