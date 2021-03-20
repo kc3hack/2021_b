@@ -1,52 +1,38 @@
+import { useState } from "react";
 import firebase from "firebase/app";
 import { useDocumentData } from "react-firebase-hooks/firestore";
-import { useDownloadURL } from "react-firebase-hooks/storage";
-import RatingStar from "./RatingStar";
 
-import dayjs from "dayjs";
+import InnerReview from "../components/InnerReview";
 
 const Reviewer = (props) => {
-  // レビュアーデータ取得
-  const uid = props.review?.user_id_token;
-  const [user] = useDocumentData(
-    uid && firebase.firestore().doc(`user/${uid}`)
-  );
+  let icon_url = "";
+  let icon_title = "";
 
-  const [image_path, loading, error] = useDownloadURL(
-    uid && firebase.storage().ref(`user_icon/${uid}.png`)
-  );
-  
+  // チロレポページではユーザアイコンとユーザ名を表示
+  if (props.isTirolRepoPage) {
+    const uid = props.review?.user_id_token;
+    const [user] = useDocumentData(
+      uid && firebase.firestore().doc(`user/${uid}`)
+    );
+    icon_url = user?.icon_url;
+    icon_title = user?.display_name;
 
-  const convertSecondToDate = (timestamp) => {
-    return dayjs(timestamp * 1000).format("YYYY/MM/DD HH:MM");
-  };
+    // マイページではチロル画像と商品名を表示
+  } else {
+    const tirol_id = props.review?.tirol_id;
+    const [tirol_doc] = useDocumentData(
+      tirol_id && firebase.firestore().doc(`tirol/${tirol_id}`)
+    );
+    icon_url = tirol_doc?.image;
+    icon_title = tirol_doc?.name;
+  }
 
   return (
-    <li className="my-8  rounded-medium">
-      <div className="flex">
-        <div className="mr-4">
-          {image_path && (
-            <img src={image_path} className="w-24 h-auto max-h-24 "></img>
-          )}
-          <h1 className="text-center">{user?.display_name}</h1>
-        </div>
-
-        <div className="p-4  bg-white w-full">
-          <div className="flex">
-            <h1 className="mr-8 font-bold">{props.review?.title}</h1>
-            <div className="my-auto">
-              <RatingStar rating={props.review?.score} />
-            </div>
-          </div>
-
-          <h1>{props.review?.content}</h1>
-
-          <h1 className="mt-auto">
-            {convertSecondToDate(props.review?.date.seconds)}投稿
-          </h1>
-        </div>
-      </div>
-    </li>
+    <InnerReview
+      review={props.review}
+      icon_url={icon_url}
+      icon_title={icon_title}
+    />
   );
 };
 
