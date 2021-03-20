@@ -15,22 +15,37 @@ const Reviewer = (props) => {
   const [image_path, loading, error] = useDownloadURL(
     uid && firebase.storage().ref(`user_icon/${uid}.png`)
   );
+  
 
   const convertSecondToDate = (timestamp) => {
     return dayjs(timestamp * 1000).format("YYYY/MM/DD HH:MM");
   };
 
   return (
-    <li className="my-8">
-      <h1>{user?.display_name}</h1>
-      {image_path && <img src={image_path} className="w-12"></img>}
+    <li className="my-8  rounded-medium">
+      <div className="flex">
+        <div className="mr-4">
+          {image_path && (
+            <img src={image_path} className="w-24 h-auto max-h-24 "></img>
+          )}
+          <h1 className="text-center">{user?.display_name}</h1>
+        </div>
 
-      <h1>{props.review?.title}</h1>
-      <h1>
-        <RatingStar rating={props.review?.score} maxRate={5} />
-      </h1>
-      <h1>{props.review?.content}</h1>
-      <div>{convertSecondToDate(props.review?.date.seconds)}投稿</div>
+        <div className="p-4  bg-white w-full">
+          <div className="flex">
+            <h1 className="mr-8 font-bold">{props.review?.title}</h1>
+            <div className="my-auto">
+              <RatingStar rating={props.review?.score} />
+            </div>
+          </div>
+
+          <h1>{props.review?.content}</h1>
+
+          <h1 className="mt-auto">
+            {convertSecondToDate(props.review?.date.seconds)}投稿
+          </h1>
+        </div>
+      </div>
     </li>
   );
 };
