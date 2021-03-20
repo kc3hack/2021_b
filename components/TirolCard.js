@@ -1,9 +1,6 @@
 import React from "react";
 import Router from "next/router";
 
-//customStylesをカスタムしてModalのサイズ設定お願いします
-
-// Modal.setAppElement("body");
 function TirolCard(props) {
   function handleClick(e) {
     e.preventDefault();
