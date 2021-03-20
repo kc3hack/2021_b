@@ -26,20 +26,18 @@ const Header = () => {
     <header>
       <div className="flex flex-row bg-red">
         <Link href={"/"} as={"/"}>
-          <img src="TiroKatsu_logo.svg" className="ml-20 w-20 h-15" />
+          <button>
+            <img src="TiroKatsu_logo.svg" className="ml-20 w-20 h-15" />
+          </button>
         </Link>
         <p className="ml-5 py-4 text-xs">
           チロルチョコファンのためのポータルサイト
         </p>
-        <p className="ml-20 py-4 text-xs">チロルレシピ</p>
         <UserProfileButton
           isLoggedIn={authUser !== null}
           avatarImageUrl={image_url}
           userDisplayName={user?.display_name}
         />
-        <Link href={"/tirolrepo"} as={"/tirolrepo"}>
-          <button className="ml-20 py-4 text-xs">チロレポ</button>
-        </Link>
       </div>
     </header>
   );
