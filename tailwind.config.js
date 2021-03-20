@@ -11,7 +11,11 @@ module.exports = {
       'yellow':'#fff964',
       'blue':'#656df6',
       'skyblue':'#96fcf8',
-    }
+    },
+      fontFamily: {
+      'noto': ['Noto Sans JP', 'sans-serif'],
+      'rocknroll':['RocknRoll One', 'sans-serif']
+    },
   },
   variants: {
     extend: {},
