@@ -1,6 +1,7 @@
 import { useState } from "react";
 import firebase from "firebase/app";
 import { useDocumentData } from "react-firebase-hooks/firestore";
+import { useDownloadURL } from "react-firebase-hooks/storage";
 
 import InnerReview from "../components/InnerReview";
 
