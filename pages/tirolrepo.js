@@ -45,7 +45,13 @@ const TirolRepo = () => {
 
         <ul>
           {reviews?.map((review) => {
-            return <Reviewer key={review?.user_id_token} review={review} />;
+            return (
+              <Reviewer
+                key={review?.id}
+                review={review}
+                isTirolRepoPage={true}
+              />
+            );
           })}
         </ul>
       </div>

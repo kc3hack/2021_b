@@ -162,8 +162,13 @@ const MyPage = (props) => {
         <h1>レビュー</h1>
         <ul>
           {reviews?.map((review) => {
-            // FIXME: review idをkeyにしたいけど取得方法がわからんねん
-            return <Reviewer key={review?.title} review={review} />;
+            return (
+              <Reviewer
+                key={review?.id}
+                review={review}
+                isTirolRepoPage={false}
+              />
+            );
           })}
         </ul>
       </div>

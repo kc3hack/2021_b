@@ -1,41 +1,42 @@
+import { useState } from "react";
 import firebase from "firebase/app";
 import { useDocumentData } from "react-firebase-hooks/firestore";
-import { useDownloadURL } from "react-firebase-hooks/storage";
-import RatingStar from "./RatingStar";
 
-import dayjs from "dayjs";
+import InnerReview from "../components/InnerReview";
 
 const Reviewer = (props) => {
-  // レビュアーデータ取得
-  const uid = props.review?.user_id_token;
-  const [user] = useDocumentData(
-    uid && firebase.firestore().doc(`user/${uid}`)
-  );
+  let icon_url = "";
+  let icon_title = "";
 
-  const [image_path, loading, error] = useDownloadURL(
-    uid && firebase.storage().ref(`user_icon/${uid}.png`)
-  );
+  // チロレポページではユーザアイコンとユーザ名を表示
+  if (props.isTirolRepoPage) {
+    const uid = props.review?.user_id_token;
+    const [user] = useDocumentData(
+      uid && firebase.firestore().doc(`user/${uid}`)
+    );
+    icon_url = user?.icon_url;
+    icon_title = user?.display_name;
 
-  const convertSecondToDate = (timestamp) => {
-    return dayjs(timestamp * 1000).format("YYYY/MM/DD HH:MM");
-  };
+    // マイページではチロル画像と商品名を表示
+  } else {
+    const tirol_id = props.review?.tirol_id;
+    const [tirol_doc] = useDocumentData(
+      tirol_id && firebase.firestore().doc(`tirol/${tirol_id}`)
+    );
+    icon_url = tirol_doc?.image;
+    icon_title = tirol_doc?.name;
+  }
 
   const [default_url] = useDownloadURL(
     firebase.storage().ref("user_icon/icon-user-pink.png")
   );
 
   return (
-    <li className="my-8">
-      <h1>{user?.display_name}</h1>
-      <img src={image_path ? image_path : default_url} className="w-12"></img>
-
-      <h1>{props.review?.title}</h1>
-      <h1>
-        <RatingStar rating={props.review?.score} maxRate={5} />
-      </h1>
-      <h1>{props.review?.content}</h1>
-      <div>{convertSecondToDate(props.review?.date.seconds)}投稿</div>
-    </li>
+    <InnerReview
+      review={props.review}
+      icon_url={icon_url}
+      icon_title={icon_title}
+    />
   );
 };
 

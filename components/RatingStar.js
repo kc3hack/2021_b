@@ -1,6 +1,6 @@
-const RatingStar = ({ rating, maxRate }) => (
+const RatingStar = ({ rating }) => (
   <svg
-    style={{ width: "7%" }}
+    style={{ width: "30%" }}
     viewBox="0 0 640 128"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -12,9 +12,9 @@ const RatingStar = ({ rating, maxRate }) => (
       <path d="M576 0L590.369 44.2229H636.868L599.249 71.5542L613.618 115.777L576 88.4458L538.382 115.777L552.751 71.5542L515.132 44.2229H561.631L576 0Z" />
     </clipPath>
     <rect
-      width={(rating / maxRate) * 640}
+      width={(rating / 5) * 640}
       height="128"
-      fill="#FF7A00"
+      fill="#F49BB3"
       clipPath="url(#star)"
     />
   </svg>
