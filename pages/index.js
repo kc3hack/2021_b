@@ -1,11 +1,11 @@
 import Top from "../components/Top";
-import MainLayout from "../layouts/Main";
+import TopLayout from "../layouts/Top";
 
 const Index = () => {
   return (
-    <MainLayout>
+    <TopLayout>
       <Top />
-    </MainLayout>
+    </TopLayout>
   );
 };
 
