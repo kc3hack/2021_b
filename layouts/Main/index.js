@@ -5,7 +5,7 @@ function MainLayout({ children }) {
   return (
     <>
       <Header />
-      <div className="main-bg p-16">
+      <div className="main-bg p-16 font-noto text-brown">
         <div className="bg-pink p-16">{children}</div>
       </div>
       <Footer />
