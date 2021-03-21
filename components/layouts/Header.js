@@ -28,20 +28,25 @@ const Header = () => {
 
   return (
     <header>
-      <div className="flex flex-row bg-red">
-        <Link href={"/"} as={"/"}>
-          <button>
-            <img src="TiroKatsu_logo.svg" className="ml-20 w-20 h-15" />
-          </button>
-        </Link>
-        <p className="ml-5 py-4 text-xs">
-          チロルチョコファンのためのポータルサイト
-        </p>
-        <UserProfileButton
-          isLoggedIn={authUser !== null}
-          avatarImageUrl={image_url ? image_url : default_url}
-          userDisplayName={user?.display_name}
-        />
+      <div className="flex bg-red">
+        <div className="flex flex-row">
+          <Link href={"/"} as={"/"}>
+            <button>
+              <img src="TiroKatsu_logo.svg" className="ml-20 w-44 h-16" />
+            </button>
+          </Link>
+          <p className="ml-5 py-4 text-xs self-center">
+            チロルチョコファンのためのポータルサイト
+          </p>
+        </div>
+        <div className="flex-grow"></div>
+        <div className="flex flex-row-reverse">
+          <UserProfileButton
+            isLoggedIn={authUser !== null}
+            avatarImageUrl={image_url ? image_url : default_url}
+            userDisplayName={user?.display_name}
+          />
+        </div>
       </div>
     </header>
   );
