@@ -1,5 +1,6 @@
 import MainLayout from "../layouts/Main/index";
 import Reviewer from "../components/reviewer";
+import NameEditor from "../components/NameEditor";
 
 import firebase from "firebase/app";
 import React, { useState, useEffect } from "react";
@@ -35,11 +36,17 @@ const MyPage = (props) => {
   );
 
   const [name, setName] = useState("");
+  const [isNameReady, setNameReady] = useState(false);
   const postNewName = async () => {
     await (uid && firebase.firestore().doc(`user/${uid}`)).update({
       display_name: name,
     });
+    setNameEditorState(false);
   };
+  if (user && !isNameReady) {
+    setNameReady(true);
+    setName(user.display_name);
+  }
 
   const [profile, setProfile] = useState("");
   const postNewProfile = async () => {
@@ -62,6 +69,10 @@ const MyPage = (props) => {
   const [imageUrl, setImageUrl] = useState("");
   const [imageError, setError] = useState("");
   const [progress, setProgress] = useState(100);
+
+  const [isEditingName, setNameEditorState] = useState(false);
+  const [isEditingAvatar, setAvatarEditorState] = useState(false);
+  const [isEditingProfile, setProfileEditorState] = useState(false);
 
   const handleImage = (event) => {
     const image = event.target.files[0];
@@ -122,14 +133,13 @@ const MyPage = (props) => {
           className="inline-block w-32 h-32"
         ></img>
         <div className="mx-8">
-          <div className="my-4">
-            <h1>名前</h1>
-            <h1>{user?.display_name}</h1>
-            <input value={name} onChange={(e) => setName(e.target.value)} />
-            <button type="button" onClick={postNewName}>
-              <FontAwesomeIcon icon="edit" />
-            </button>
-          </div>
+          <NameEditor 
+            isEditing={isEditingName}
+            displayName={name}
+            startEditingCallback={() => setNameEditorState(true)}
+            nameChangeCallback={(n) => setName(n)}
+            submitCallback={postNewName}
+          />
 
           <div className="my-4">
             アイコン
