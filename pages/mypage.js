@@ -16,6 +16,8 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 const MyPage = (props) => {
   const [authUser, authLoading, authError] = useAuthState(firebase.auth());
   const uid = authUser?.uid;
@@ -125,7 +127,7 @@ const MyPage = (props) => {
             <h1>{user?.display_name}</h1>
             <input value={name} onChange={(e) => setName(e.target.value)} />
             <button type="button" onClick={postNewName}>
-              変更
+              <FontAwesomeIcon icon="edit" />
             </button>
           </div>
 
@@ -134,7 +136,9 @@ const MyPage = (props) => {
             {imageError && <div variant="danger">{error}</div>}
             <form onSubmit={onSubmit}>
               <input type="file" onChange={handleImage} />
-              <button onClick={onSubmit}>アップロード</button>
+              <button type="button" onClick={onSubmit}>
+                <FontAwesomeIcon icon="check" />
+              </button>
             </form>
             {progress !== 100 && <LinearProgressWithLabel value={progress} />}
             {imageUrl && (
@@ -152,7 +156,7 @@ const MyPage = (props) => {
               onChange={(e) => setProfile(e.target.value)}
             />
             <button type="button" onClick={postNewProfile} className="">
-              変更
+              <FontAwesomeIcon icon="edit" />
             </button>
           </div>
         </div>
