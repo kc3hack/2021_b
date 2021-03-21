@@ -27,6 +27,10 @@ const Reviewer = (props) => {
     icon_title = tirol_doc?.name;
   }
 
+  const [default_url] = useDownloadURL(
+    firebase.storage().ref("user_icon/icon-user-pink.png")
+  );
+
   return (
     <InnerReview
       review={props.review}

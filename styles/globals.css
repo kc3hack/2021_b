@@ -18,3 +18,11 @@ a {
 .main-bg {
   background-image: url("../public/background_yellow.png");
 }
+
+.outlined-rocknroll {
+  font-family: "RocknRoll One", "sans-serif";
+  color: #fffff8;
+  text-stroke: 1px #570000;
+  -webkit-text-stroke: 0.1rem #570000;
+  font-weight: 900;
+}

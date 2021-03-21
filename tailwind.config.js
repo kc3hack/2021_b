@@ -12,7 +12,11 @@ module.exports = {
       'blue':'#656df6',
       'skyblue':'#96fcf8',
     },
-    extend: {
+      fontFamily: {
+      'noto': ['Noto Sans JP', 'sans-serif'],
+      'rocknroll':['RocknRoll One', 'sans-serif']
+    },
+      extend: {
       gridTemplateColumns: {
        'auto': 'repeat(auto-fit, minmax(128px, 1fr))',
       }

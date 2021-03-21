@@ -47,6 +47,10 @@ const NewReview = (props) => {
     document.getElementById("default-score").selected = true;
   };
 
+  const [default_url] = useDownloadURL(
+    firebase.storage().ref("user_icon/icon-user-pink.png")
+  );
+
   // 未ログインなら表示しない
   if (!uid) {
     return <></>;
@@ -55,7 +59,7 @@ const NewReview = (props) => {
   return (
     <div className="flex rounded-sm">
       <div>
-        {image_path && <img src={image_path} className="w-12"></img>}
+        <img src={image_path ? image_path : default_url} className="w-12"></img>
         <h1>{user?.display_name}</h1>
       </div>
 

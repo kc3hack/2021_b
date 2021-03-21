@@ -28,6 +28,10 @@ const MyPage = (props) => {
     uid && firebase.storage().ref(`user_icon/${uid}.png`)
   );
 
+  const [default_url] = useDownloadURL(
+    firebase.storage().ref("user_icon/icon-user-pink.png")
+  );
+
   const [name, setName] = useState("");
   const postNewName = async () => {
     await (uid && firebase.firestore().doc(`user/${uid}`)).update({
@@ -91,7 +95,18 @@ const MyPage = (props) => {
         setError("ファイルアップに失敗しました。" + error);
         setProgress(100); //実行中のバーを消す
       },
-      () => {
+      async () => {
+        let url = "";
+        // 完了後の処理
+        // 画像表示のため、アップロードした画像のURLを取得
+        await imagesRef.getDownloadURL().then((fireBaseUrl) => {
+          console.log(`画像のURL:${fireBaseUrl}`);
+          url = fireBaseUrl;
+          console.log("url:firebaseurl");
+        });
+        await firebase.firestore().collection("user").doc(uid).update({
+          icon_url: url,
+        });
         location.reload();
       }
     );
@@ -100,7 +115,10 @@ const MyPage = (props) => {
   return (
     <MainLayout>
       <div className="flex ">
-        {image_url && <img src={image_url} className="w-32 h-32"></img>}
+        <img
+          src={image_url ? image_url : default_url}
+          className="inline-block w-32 h-32"
+        ></img>
         <div className="mx-8">
           <div className="my-4">
             <h1>名前</h1>
