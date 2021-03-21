@@ -31,7 +31,7 @@ const TirolRepo = () => {
   return (
     <MainLayout>
       <div className="flex">
-        {<img src={tirol_doc?.image}></img>}
+        {<img src={tirol_doc?.image} className="inline-block w-32 h-32"></img>}
         <div>
           <h1>{tirol_doc?.name}</h1>
           <h1>星評価{tirol_doc?.average_score}</h1>

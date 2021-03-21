@@ -100,7 +100,9 @@ const MyPage = (props) => {
   return (
     <MainLayout>
       <div className="flex ">
-        {image_url && <img src={image_url} className="w-32 h-32"></img>}
+        {image_url && (
+          <img src={image_url} className="inline-block w-32 h-32"></img>
+        )}
         <div className="mx-8">
           <div className="my-4">
             <h1>名前</h1>
