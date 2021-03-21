@@ -1,6 +1,7 @@
 import MainLayout from "../layouts/Main/index";
 import Reviewer from "../components/reviewer";
 import NameEditor from "../components/NameEditor";
+import ProfileEditor from "../components/ProfileEditor";
 
 import firebase from "firebase/app";
 import React, { useState, useEffect } from "react";
@@ -36,24 +37,28 @@ const MyPage = (props) => {
   );
 
   const [name, setName] = useState("");
-  const [isNameReady, setNameReady] = useState(false);
   const postNewName = async () => {
     await (uid && firebase.firestore().doc(`user/${uid}`)).update({
       display_name: name,
     });
     setNameEditorState(false);
   };
-  if (user && !isNameReady) {
-    setNameReady(true);
-    setName(user.display_name);
-  }
 
   const [profile, setProfile] = useState("");
   const postNewProfile = async () => {
     await (uid && firebase.firestore().doc(`user/${uid}`)).update({
       profile: profile,
     });
+    setProfileEditorState(false);
   };
+
+  // ユーザプロフィールを予めstateに入れておく
+  const [isProfileReady, setProfileReady] = useState(false);
+  if (user && !isProfileReady) {
+    setProfileReady(true);
+    setName(user.display_name);
+    setProfile(user?.profile);
+  }
 
   // このユーザの全てのレビューを取得
   const [reviews] = useCollectionData(
@@ -158,17 +163,13 @@ const MyPage = (props) => {
             )}
           </div>
 
-          <div className="my-4">
-            <h1>プロフィール</h1>
-            <h1>{user?.profile}</h1>
-            <input
-              value={profile}
-              onChange={(e) => setProfile(e.target.value)}
-            />
-            <button type="button" onClick={postNewProfile} className="">
-              <FontAwesomeIcon icon="edit" />
-            </button>
-          </div>
+          <ProfileEditor
+            isEditing={isEditingProfile}
+            profileText={profile}
+            startEditingCallback={() => setProfileEditorState(true)}
+            profileChangeCallback={(p) => setProfile(p)}
+            submitCallback={postNewProfile}
+          />
         </div>
       </div>
 
