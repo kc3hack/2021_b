@@ -1,5 +1,7 @@
 import MainLayout from "../layouts/Main/index";
 import Reviewer from "../components/reviewer";
+import NameEditor from "../components/NameEditor";
+import ProfileEditor from "../components/ProfileEditor";
 
 import firebase from "firebase/app";
 import React, { useState, useEffect } from "react";
@@ -15,6 +17,8 @@ import { storage } from "./_app";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const MyPage = (props) => {
   const [authUser, authLoading, authError] = useAuthState(firebase.auth());
@@ -37,6 +41,7 @@ const MyPage = (props) => {
     await (uid && firebase.firestore().doc(`user/${uid}`)).update({
       display_name: name,
     });
+    setNameEditorState(false);
   };
 
   const [profile, setProfile] = useState("");
@@ -44,7 +49,16 @@ const MyPage = (props) => {
     await (uid && firebase.firestore().doc(`user/${uid}`)).update({
       profile: profile,
     });
+    setProfileEditorState(false);
   };
+
+  // ユーザプロフィールを予めstateに入れておく
+  const [isProfileReady, setProfileReady] = useState(false);
+  if (user && !isProfileReady) {
+    setProfileReady(true);
+    setName(user.display_name);
+    setProfile(user?.profile);
+  }
 
   // このユーザの全てのレビューを取得
   const [reviews] = useCollectionData(
@@ -60,6 +74,10 @@ const MyPage = (props) => {
   const [imageUrl, setImageUrl] = useState("");
   const [imageError, setError] = useState("");
   const [progress, setProgress] = useState(100);
+
+  const [isEditingName, setNameEditorState] = useState(false);
+  const [isEditingAvatar, setAvatarEditorState] = useState(false);
+  const [isEditingProfile, setProfileEditorState] = useState(false);
 
   const handleImage = (event) => {
     const image = event.target.files[0];
@@ -120,21 +138,22 @@ const MyPage = (props) => {
           className="inline-block w-32 h-32"
         ></img>
         <div className="mx-8">
-          <div className="my-4">
-            <h1>名前</h1>
-            <h1>{user?.display_name}</h1>
-            <input value={name} onChange={(e) => setName(e.target.value)} />
-            <button type="button" onClick={postNewName}>
-              変更
-            </button>
-          </div>
+          <NameEditor
+            isEditing={isEditingName}
+            displayName={name}
+            startEditingCallback={() => setNameEditorState(true)}
+            nameChangeCallback={(n) => setName(n)}
+            submitCallback={postNewName}
+          />
 
           <div className="my-4">
             アイコン
             {imageError && <div variant="danger">{error}</div>}
             <form onSubmit={onSubmit}>
               <input type="file" onChange={handleImage} />
-              <button onClick={onSubmit}>アップロード</button>
+              <button type="button" onClick={onSubmit}>
+                <FontAwesomeIcon icon="check" />
+              </button>
             </form>
             {progress !== 100 && <LinearProgressWithLabel value={progress} />}
             {imageUrl && (
@@ -144,17 +163,13 @@ const MyPage = (props) => {
             )}
           </div>
 
-          <div className="my-4">
-            <h1>プロフィール</h1>
-            <h1>{user?.profile}</h1>
-            <input
-              value={profile}
-              onChange={(e) => setProfile(e.target.value)}
-            />
-            <button type="button" onClick={postNewProfile} className="">
-              変更
-            </button>
-          </div>
+          <ProfileEditor
+            isEditing={isEditingProfile}
+            profileText={profile}
+            startEditingCallback={() => setProfileEditorState(true)}
+            profileChangeCallback={(p) => setProfile(p)}
+            submitCallback={postNewProfile}
+          />
         </div>
       </div>
 

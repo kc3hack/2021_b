@@ -8,6 +8,11 @@ import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faEdit, faCheck } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faEdit, faCheck);
+
 const config = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
