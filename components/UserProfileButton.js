@@ -6,14 +6,18 @@ const UserProfileButton = (props) => {
       <div className="flex flex-row cursor-pointer">
         <img
           src={props.avatarImageUrl}
-          className="place-self-center ml-20 w-8 h-8"
+          className="place-self-center mr-2 w-8 h-8"
         ></img>
-        <p className="ml-2 py-4 text-xs">{props.userDisplayName}</p>
+        <p className="mr-20 self-center text-white text-xs">
+          {props.userDisplayName}
+        </p>
       </div>
     </Link>
   ) : (
     <Link href={"/login"} as={"/login"}>
-      <button className="ml-20 py-4 text-xs cursor-pointer">ログイン</button>
+      <button className="mr-20 self-center text-white text-xs cursor-pointer">
+        ログイン
+      </button>
     </Link>
   );
 };
