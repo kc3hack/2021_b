@@ -1,17 +1,23 @@
 import dayjs from "dayjs";
 import RatingStar from "./RatingStar";
+import firebase from "firebase/app";
+import { useDownloadURL } from "react-firebase-hooks/storage";
 
 const InnerReview = (props) => {
   const convertSecondToDate = (timestamp) => {
     return dayjs(timestamp * 1000).format("YYYY/MM/DD HH:MM");
   };
 
+  const [default_url] = useDownloadURL(
+    firebase.storage().ref("user_icon/icon-user-pink.png")
+  );
+
   return (
     <li className="my-8  rounded-medium">
       <div className="flex">
         <div className="mr-4">
           <img
-            src={props.icon_url}
+            src={props.icon_url?props.icon_url:default_url}
             className="inline-block w-24 h-auto max-h-24 "
           ></img>
           <h1 className="text-center">{props.icon_title}</h1>
