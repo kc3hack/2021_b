@@ -58,8 +58,8 @@ const NewReview = (props) => {
 
   return (
     <div className="flex rounded-sm">
-      <div>
-        <img src={image_path ? image_path : default_url} className="w-12"></img>
+      <div className="mr-4">
+        <img src={image_path ? image_path : default_url} className="w-24"></img>
         <h1>{user?.display_name}</h1>
       </div>
 
