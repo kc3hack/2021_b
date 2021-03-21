@@ -20,10 +20,9 @@ const NameEditor = ({
     </div>
   ) : (
     <div className="my-4">
-      <h1>名前</h1>
-      <p>
+      <p className="text-4xl font-rocknroll">
         {displayName}
-        <button type="button" onClick={startEditingCallback}>
+        <button type="button" onClick={startEditingCallback} className="ml-4">
           <FontAwesomeIcon icon="edit" />
         </button>
       </p>

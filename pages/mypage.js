@@ -132,22 +132,15 @@ const MyPage = (props) => {
 
   return (
     <MainLayout>
+      <h1 className="mb-4 outlined-rocknroll text-4xl">マイページ</h1>
       <div className="flex ">
-        <img
-          src={image_url ? image_url : default_url}
-          className="inline-block w-32 h-32"
-        ></img>
-        <div className="mx-8">
-          <NameEditor
-            isEditing={isEditingName}
-            displayName={name}
-            startEditingCallback={() => setNameEditorState(true)}
-            nameChangeCallback={(n) => setName(n)}
-            submitCallback={postNewName}
-          />
+        <div>
+          <img
+            src={image_url ? image_url : default_url}
+            className="inline-block w-32 h-32"
+          ></img>
 
           <div className="my-4">
-            アイコン
             {imageError && <div variant="danger">{imageError}</div>}
             <form onSubmit={onSubmit}>
               <input type="file" onChange={handleImage} />
@@ -162,6 +155,15 @@ const MyPage = (props) => {
               </div>
             )}
           </div>
+        </div>
+        <div className="mx-8">
+          <NameEditor
+            isEditing={isEditingName}
+            displayName={name}
+            startEditingCallback={() => setNameEditorState(true)}
+            nameChangeCallback={(n) => setName(n)}
+            submitCallback={postNewName}
+          />
 
           <ProfileEditor
             isEditing={isEditingProfile}
