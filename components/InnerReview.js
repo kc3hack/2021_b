@@ -17,7 +17,7 @@ const InnerReview = (props) => {
       <div className="flex">
         <div className="mr-4">
           <img
-            src={props.icon_url?props.icon_url:default_url}
+            src={props.icon_url ? props.icon_url : default_url}
             className="inline-block w-24 h-auto max-h-24 "
           ></img>
           <h1 className="text-center">{props.icon_title}</h1>
