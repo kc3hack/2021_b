@@ -138,7 +138,7 @@ const MyPage = (props) => {
           className="inline-block w-32 h-32"
         ></img>
         <div className="mx-8">
-          <NameEditor 
+          <NameEditor
             isEditing={isEditingName}
             displayName={name}
             startEditingCallback={() => setNameEditorState(true)}
