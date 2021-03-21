@@ -35,7 +35,7 @@ const Header = () => {
               <img src="TiroKatsu_logo.svg" className="ml-20 w-44 h-16" />
             </button>
           </Link>
-          <p className="ml-5 py-4 text-xs self-center">
+          <p className="ml-5 py-4 text-xs text-white self-center">
             チロルチョコファンのためのポータルサイト
           </p>
         </div>
