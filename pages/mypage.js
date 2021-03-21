@@ -148,7 +148,7 @@ const MyPage = (props) => {
 
           <div className="my-4">
             アイコン
-            {imageError && <div variant="danger">{error}</div>}
+            {imageError && <div variant="danger">{imageError}</div>}
             <form onSubmit={onSubmit}>
               <input type="file" onChange={handleImage} />
               <button type="button" onClick={onSubmit}>
