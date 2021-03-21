@@ -23,7 +23,7 @@ const ProfileEditor = ({
       <h1>プロフィール</h1>
       <p>
         {profileText}
-        <button type="button" onClick={startEditingCallback}>
+        <button type="button" onClick={startEditingCallback} className="ml-2">
           <FontAwesomeIcon icon="edit" />
         </button>
       </p>
