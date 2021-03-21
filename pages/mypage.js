@@ -95,7 +95,18 @@ const MyPage = (props) => {
         setError("ファイルアップに失敗しました。" + error);
         setProgress(100); //実行中のバーを消す
       },
-      () => {
+      async () => {
+        let url = "";
+        // 完了後の処理
+        // 画像表示のため、アップロードした画像のURLを取得
+        await imagesRef.getDownloadURL().then((fireBaseUrl) => {
+          console.log(`画像のURL:${fireBaseUrl}`);
+          url = fireBaseUrl;
+          console.log("url:firebaseurl");
+        });
+        await firebase.firestore().collection("user").doc(uid).update({
+          icon_url: url,
+        });
         location.reload();
       }
     );
@@ -106,7 +117,7 @@ const MyPage = (props) => {
       <div className="flex ">
         <img
           src={image_url ? image_url : default_url}
-          className="w-32 h-32"
+          className="inline-block w-32 h-32"
         ></img>
         <div className="mx-8">
           <div className="my-4">
